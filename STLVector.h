@@ -20,6 +20,10 @@ public:
     ~STLVector();
 
     STLVector &operator=(const STLVector &stlVector);
+    bool operator==(const STLVector &stlVector);
+    bool operator!=(const STLVector &stlVector);
+    bool operator>(const STLVector &stlVector);
+    bool operator<(const STLVector &stlVector);
     int operator[](int index);
 
     void PushBack(int value);
@@ -28,11 +32,12 @@ public:
     int At(int index);
     int Front();
     int Back();
+    void Swap(STLVector &stlVector);
     void Reserve(int capacity);
     void Resize(int size);
     void Resize(int size, int value);
     bool Empty();
-    int Clear();
+    void Clear();
     int Size();
     int Capacity();
 };

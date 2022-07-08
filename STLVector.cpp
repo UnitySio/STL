@@ -31,7 +31,65 @@ STLVector::~STLVector() {
 }
 
 STLVector &STLVector::operator=(const STLVector &stlVector) {
+    int *temp = new int[stlVector.size];
+
+    for (int i = 0; i < stlVector.size; i++) {
+        temp[i] = stlVector.array[i];
+    }
+
+    delete[] array;
+
+    size = stlVector.size;
+    capacity = stlVector.size;
+    array = temp;
+
     return *this;
+}
+
+bool STLVector::operator==(const STLVector &stlVector) {
+    if (size != stlVector.size) {
+        return false;
+    }
+
+    for (int i = 0; i < size; i++) {
+        if (array[i] != stlVector.array[i]) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool STLVector::operator!=(const STLVector &stlVector) {
+    if (size == stlVector.size) {
+        return false;
+    }
+
+    for (int i = 0; i < size; i++) {
+        if (array[i] == stlVector.array[i]) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool STLVector::operator<(const STLVector &stlVector) {
+    if (size < stlVector.size) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+bool STLVector::operator>(const STLVector &stlVector) {
+    if (size > stlVector.size) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
 int STLVector::operator[](int index) {
@@ -49,6 +107,7 @@ void STLVector::PushBack(int value) {
             temp[i] = array[i];
         }
 
+        delete[] array;
         array = temp;
     }
 
@@ -60,6 +119,8 @@ void STLVector::PopBack() {
 }
 
 void STLVector::Assign(int size, int value) {
+    delete[] array;
+
     this->size = size;
     capacity = size;
     array = new int[size];
@@ -87,6 +148,24 @@ int STLVector::Back() {
     return array[size - 1];
 }
 
+void STLVector::Swap(STLVector &stlVector) {
+    int *temp_array = array;
+    int temp_size = size;
+    int temp_capacity = capacity;
+
+    delete[] array;
+
+    array = stlVector.array;
+    size = stlVector.size;
+    capacity = stlVector.capacity;
+
+    delete[] stlVector.array;
+
+    stlVector.array = temp_array;
+    stlVector.size = temp_size;
+    stlVector.capacity = temp_capacity;
+}
+
 void STLVector::Reserve(int capacity) {
     this->capacity = capacity;
     int *temp = new int[capacity];
@@ -95,19 +174,30 @@ void STLVector::Reserve(int capacity) {
         temp[i] = array[i];
     }
 
+    delete[] array;
     array = temp;
 }
 
 void STLVector::Resize(int size) {
     int *temp = new int[size];
 
-    for (int i = 0; i < size; i++) {
-        temp[i] = 0;
+    if (size > this->size) {
+        for (int i = 0; i < size; i++) {
+            if (i > this->size - 1) {
+                temp[i] = 0;
+            }
+            else {
+                temp[i] = array[i];
+            }
+        }
+    }
+    else {
+        for (int i = 0; i < size; i++) {
+            temp[i] = array[i];
+        }
     }
 
-    for (int i = 0; i < this->size; i++) {
-        temp[i] = array[i];
-    }
+    delete[] array;
 
     this->size = size;
     capacity = size;
@@ -133,6 +223,8 @@ void STLVector::Resize(int size, int value) {
         }
     }
 
+    delete[] array;
+
     this->size = size;
     capacity = size;
     array = temp;
@@ -147,7 +239,7 @@ bool STLVector::Empty() {
     }
 }
 
-int STLVector::Clear() {
+void STLVector::Clear() {
     for (int i = 0; i < size; i++) {
         array[i] = 0;
     }

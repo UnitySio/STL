@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <time.h>
 #include "stl_vector.h"
 using namespace std;
 

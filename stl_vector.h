@@ -149,8 +149,8 @@ template <typename T>
 class STLVector {
 private:
     T *array_;
-    int size_;
-    int capacity_;
+    size_t size_;
+    size_t capacity_;
 public:
     typedef Iterator<T> Iterator;
     typedef ReverseIterator<T> ReverseIterator;
@@ -161,7 +161,7 @@ public:
         array_ = new T[capacity_];
     }
 
-    STLVector(int size) {
+    STLVector(size_t size) {
         size_ = size;
         capacity_ = size;
         array_ = new T[size];
@@ -171,7 +171,7 @@ public:
         }
     }
 
-    STLVector(int size, T value) {
+    STLVector(size_t size, T value) {
         size_ = size;
         capacity_ = size;
         array_ = new T[size];
@@ -257,7 +257,7 @@ public:
         size_--;
     }
 
-    void Assign(int size, T value) {
+    void Assign(size_t size, T value) {
         delete[] array_;
 
         size_ = size;
@@ -303,7 +303,7 @@ public:
         stl_vector.capacity_ = temp_capacity;
     }
 
-    void Reserve(int new_capacity) {
+    void Reserve(size_t new_capacity) {
         capacity_ = new_capacity;
         T *temp = new T[new_capacity];
 
@@ -315,7 +315,7 @@ public:
         array_ = temp;
     }
 
-    void Resize(int new_size) {
+    void Resize(size_t new_size) {
         T *temp = new T[new_size];
 
         if (new_size > size_) {
@@ -335,7 +335,7 @@ public:
         array_ = temp;
     }
 
-    void Resize(int new_size, int value) {
+    void Resize(size_t new_size, int value) {
         T *temp = new T[new_size];
 
         if (new_size > size_) {
@@ -408,8 +408,8 @@ public:
         return Iterator(array_ + index);
     }
 
-    Iterator Insert(Iterator position, int amount, T value) {
-        int index = position - array_;
+    Iterator Insert(Iterator position, size_t amount, T value) {
+        size_t index = position - array_;
 
         if (size_ + amount >= capacity_) {
             if (size_ + amount > capacity_ * 2) {

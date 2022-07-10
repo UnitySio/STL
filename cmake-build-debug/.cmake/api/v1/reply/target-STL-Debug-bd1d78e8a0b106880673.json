@@ -106,7 +106,7 @@
 		},
 		{
 			"backtrace" : 1,
-			"path" : "STLVector.h",
+			"path" : "stl_vector.h",
 			"sourceGroupIndex" : 1
 		}
 	],

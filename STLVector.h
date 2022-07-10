@@ -8,6 +8,10 @@
 #include <iostream>
 using namespace std;
 
+/**
+ * @brief 반복자
+ * @details
+ */
 template <typename T>
 class Iterator {
 private:
@@ -74,6 +78,10 @@ public:
     }
 };
 
+/**
+ * @brief 역반복자
+ * @details
+ */
 template <typename T>
 class ReverseIterator {
 private:

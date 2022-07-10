@@ -230,19 +230,11 @@ public:
     }
 
     bool operator>(const STLVector &stlVector) {
-        if (size_ < stlVector.size_) {
-            return true;
-        } else {
-            return false;
-        }
+        return size_ < stlVector.size_;
     }
 
     bool operator<(const STLVector &stlVector) {
-        if (size_ > stlVector.size_) {
-            return true;
-        } else {
-            return false;
-        }
+        return size_ > stlVector.size_;
     }
 
     T &operator[](int index) {
@@ -348,7 +340,7 @@ public:
 
         if (size > size_) {
             for (int i = 0; i < size; i++) {
-                if (i > this->size_ - 1) {
+                if (i > size_ - 1) {
                     temp[i] = value;
                 } else {
                     temp[i] = array_[i];
@@ -368,11 +360,7 @@ public:
     }
 
     bool Empty() {
-        if (size_ <= 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return size_ <= 0;
     }
 
     void Clear() {
@@ -462,7 +450,7 @@ public:
 
         for (int i = 0; i < size; i++) {
             array_[index + i] = *start;
-            ++start;
+            start++;
         }
 
         size_ += size;

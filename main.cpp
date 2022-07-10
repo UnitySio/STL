@@ -4,32 +4,25 @@
 using namespace std;
 
 int main() {
-    STLVector<int> a;
+    STLVector<string> vec;
 
     for (int i = 0; i < 10; i++) {
-        a.PushBack(i + 1);
+        vec.PushBack("N : " + to_string(i + 1));
     }
 
-    STLVector<int>::iterator iter = a.Begin();
+    STLVector<string> t_vec;
 
-    iter -= 5;
-    cout << iter[0] << endl;
-
-    /*for (; iter != a.End(); ++iter) {
-        cout << *iter << endl;
-    }*/
-
-    vector<int> v;
-
-    for (int i = 0; i < 10; i++) {
-        v.push_back(i + 1);
+    for (int i = 0; i < 5; i++) {
+        t_vec.PushBack("Temp N : " + to_string(i + 1));
     }
 
-    vector<int>::iterator viter = v.begin();
+    STLVector<string>::Iterator it = vec.Begin();
 
-    viter += 10;
+    vec.Insert(vec.Begin() + 3, t_vec.Begin() + 2, t_vec.End());
 
-    cout << viter[0] << endl;
+    for (it = vec.Begin(); it != vec.End(); ++it) {
+        cout << *it << endl;
+    }
 
     return 0;
 }

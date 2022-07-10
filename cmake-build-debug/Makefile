@@ -129,30 +129,6 @@ STL/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/STL.dir/build.make CMakeFiles/STL.dir/build
 .PHONY : STL/fast
 
-STLVector.o: STLVector.cpp.o
-.PHONY : STLVector.o
-
-# target to build an object file
-STLVector.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/STL.dir/build.make CMakeFiles/STL.dir/STLVector.cpp.o
-.PHONY : STLVector.cpp.o
-
-STLVector.i: STLVector.cpp.i
-.PHONY : STLVector.i
-
-# target to preprocess a source file
-STLVector.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/STL.dir/build.make CMakeFiles/STL.dir/STLVector.cpp.i
-.PHONY : STLVector.cpp.i
-
-STLVector.s: STLVector.cpp.s
-.PHONY : STLVector.s
-
-# target to generate assembly for a file
-STLVector.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/STL.dir/build.make CMakeFiles/STL.dir/STLVector.cpp.s
-.PHONY : STLVector.cpp.s
-
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -186,9 +162,6 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... STL"
-	@echo "... STLVector.o"
-	@echo "... STLVector.i"
-	@echo "... STLVector.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

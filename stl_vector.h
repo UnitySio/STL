@@ -2,8 +2,8 @@
 // Created by Woojin Choi on 2022/07/07.
 //
 
-#ifndef STL_STLVECTOR_H
-#define STL_STLVECTOR_H
+#ifndef STL_STL_VECTOR_H
+#define STL_STL_VECTOR_H
 
 #include <iostream>
 using namespace std;
@@ -185,29 +185,29 @@ public:
         delete[] array_;
     }
 
-    STLVector &operator=(const STLVector &stlVector) {
-        T *temp = new T[stlVector.size_];
+    STLVector &operator=(const STLVector &kSTLVector) {
+        T *temp = new T[kSTLVector.size_];
 
-        for (int i = 0; i < stlVector.size_; i++) {
-            temp[i] = stlVector.array_[i];
+        for (int i = 0; i < kSTLVector.size_; i++) {
+            temp[i] = kSTLVector.array_[i];
         }
 
         delete[] array_;
 
-        size_ = stlVector.size_;
-        capacity_ = stlVector.size_;
+        size_ = kSTLVector.size_;
+        capacity_ = kSTLVector.size_;
         array_ = temp;
 
         return *this;
     }
 
-    bool operator==(const STLVector &stlVector) {
-        if (size_ != stlVector.size_) {
+    bool operator==(const STLVector &kSTLVector) {
+        if (size_ != kSTLVector.size_) {
             return false;
         }
 
         for (int i = 0; i < size_; i++) {
-            if (array_[i] != stlVector.array_[i]) {
+            if (array_[i] != kSTLVector.array_[i]) {
                 return false;
             }
         }
@@ -215,13 +215,13 @@ public:
         return true;
     }
 
-    bool operator!=(const STLVector &stlVector) {
-        if (size_ == stlVector.size_) {
+    bool operator!=(const STLVector &kSTLVector) {
+        if (size_ == kSTLVector.size_) {
             return false;
         }
 
         for (int i = 0; i < size_; i++) {
-            if (array_[i] == stlVector.array_[i]) {
+            if (array_[i] == kSTLVector.array_[i]) {
                 return false;
             }
         }
@@ -229,12 +229,12 @@ public:
         return true;
     }
 
-    bool operator>(const STLVector &stlVector) {
-        return size_ < stlVector.size_;
+    bool operator>(const STLVector &kSTLVector) {
+        return size_ < kSTLVector.size_;
     }
 
-    bool operator<(const STLVector &stlVector) {
-        return size_ > stlVector.size_;
+    bool operator<(const STLVector &kSTLVector) {
+        return size_ > kSTLVector.size_;
     }
 
     T &operator[](int index) {
@@ -285,27 +285,27 @@ public:
         return array_[size_ - 1];
     }
 
-    void Swap(STLVector &stlVector) {
+    void Swap(STLVector &stl_vector) {
         T *temp_array = array_;
         int temp_size = size_;
         int temp_capacity = capacity_;
 
         delete[] array_;
 
-        array_ = stlVector.array_;
-        size_ = stlVector.size_;
-        capacity_ = stlVector.capacity_;
+        array_ = stl_vector.array_;
+        size_ = stl_vector.size_;
+        capacity_ = stl_vector.capacity_;
 
-        delete[] stlVector.array_;
+        delete[] stl_vector.array_;
 
-        stlVector.array_ = temp_array;
-        stlVector.size_ = temp_size;
-        stlVector.capacity_ = temp_capacity;
+        stl_vector.array_ = temp_array;
+        stl_vector.size_ = temp_size;
+        stl_vector.capacity_ = temp_capacity;
     }
 
-    void Reserve(int capacity) {
-        capacity_ = capacity;
-        T *temp = new T[capacity];
+    void Reserve(int new_capacity) {
+        capacity_ = new_capacity;
+        T *temp = new T[new_capacity];
 
         for (int i = 0; i < size_; i++) {
             temp[i] = array_[i];
@@ -315,31 +315,31 @@ public:
         array_ = temp;
     }
 
-    void Resize(int size) {
-        T *temp = new T[size];
+    void Resize(int new_size) {
+        T *temp = new T[new_size];
 
-        if (size > size_) {
-            for (int i = 0; i < size; i++) {
+        if (new_size > size_) {
+            for (int i = 0; i < new_size; i++) {
                 temp[i] = array_[i];
             }
         } else {
-            for (int i = 0; i < size; i++) {
+            for (int i = 0; i < new_size; i++) {
                 temp[i] = array_[i];
             }
         }
 
         delete[] array_;
 
-        size_ = size;
-        capacity_ = size;
+        size_ = new_size;
+        capacity_ = new_size;
         array_ = temp;
     }
 
-    void Resize(int size, int value) {
-        T *temp = new T[size];
+    void Resize(int new_size, int value) {
+        T *temp = new T[new_size];
 
-        if (size > size_) {
-            for (int i = 0; i < size; i++) {
+        if (new_size > size_) {
+            for (int i = 0; i < new_size; i++) {
                 if (i > size_ - 1) {
                     temp[i] = value;
                 } else {
@@ -347,15 +347,15 @@ public:
                 }
             }
         } else {
-            for (int i = 0; i < size; i++) {
+            for (int i = 0; i < new_size; i++) {
                 temp[i] = array_[i];
             }
         }
 
         delete[] array_;
 
-        size_ = size;
-        capacity_ = size;
+        size_ = new_size;
+        capacity_ = new_size;
         array_ = temp;
     }
 
@@ -408,26 +408,26 @@ public:
         return Iterator(array_ + index);
     }
 
-    Iterator Insert(Iterator position, int size, T value) {
+    Iterator Insert(Iterator position, int amount, T value) {
         int index = position - array_;
 
-        if (size_ + size >= capacity_) {
-            if (size_ + size > capacity_ * 2) {
-                Reserve(size_ + size);
+        if (size_ + amount >= capacity_) {
+            if (size_ + amount > capacity_ * 2) {
+                Reserve(size_ + amount);
             } else {
                 Reserve(capacity_ * 2);
             }
         }
 
-        for (int i = size_ + size; i > index; i--) {
-            array_[i] = array_[i - size];
+        for (int i = size_ + amount; i > index; i--) {
+            array_[i] = array_[i - amount];
         }
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < amount; i++) {
             array_[index + i] = value;
         }
 
-        size_ += size;
+        size_ += amount;
 
         return Iterator(array_ + index);
     }
@@ -480,4 +480,4 @@ public:
     }
 };
 
-#endif //STL_STLVECTOR_H
+#endif //STL_STL_VECTOR_H

@@ -8,7 +8,6 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/woojinchoi/CLionProjects/STL/STLVector.cpp" "CMakeFiles/STL.dir/STLVector.cpp.o" "gcc" "CMakeFiles/STL.dir/STLVector.cpp.o.d"
   "/Users/woojinchoi/CLionProjects/STL/main.cpp" "CMakeFiles/STL.dir/main.cpp.o" "gcc" "CMakeFiles/STL.dir/main.cpp.o.d"
   )
 

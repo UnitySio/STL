@@ -78,9 +78,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/woojinchoi/CLionProjects/STL/STLVector.cpp">
-			<Option target="STL"/>
-		</Unit>
 		<Unit filename="/Users/woojinchoi/CLionProjects/STL/STLVector.h">
 			<Option target="STL"/>
 		</Unit>

@@ -1,6 +1,4 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/STL.dir/STLVector.cpp.o"
-  "CMakeFiles/STL.dir/STLVector.cpp.o.d"
   "CMakeFiles/STL.dir/main.cpp.o"
   "CMakeFiles/STL.dir/main.cpp.o.d"
   "STL"

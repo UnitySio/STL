@@ -436,12 +436,13 @@ public:
     Iterator Insert(Iterator position, Iterator start, Iterator end) {
         int index = position - array_;
         int size = end - start;
+        size_t new_capacity = capacity_ * 2;
 
         if (size_ + size >= capacity_) {
-            if (size_ + size > capacity_ * 2) {
+            if (size_ + size > new_capacity) {
                 Reserve(size_ + size);
             } else {
-                Reserve(capacity_ * 2);
+                Reserve(new_capacity);
             }
         }
 

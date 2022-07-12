@@ -1,8 +1,12 @@
 #include <iostream>
+#include <vector>
 #include "stl_vector.h"
+#include "stl_pair.h"
 using namespace std;
 
 int main() {
+    STLVector<STLPair<int, bool>> v_pair(10, MakePair(1, false));
+
     STLVector<string> vec;
 
     for (int i = 0; i < 10; i++) {
@@ -28,6 +32,8 @@ int main() {
     for (rit = vec.RBegin(); rit != vec.REnd(); ++rit) {
         cout << *rit << endl;
     }
+
+    vector<pair<int, string>> t(10, make_pair(10, ""));
 
     return 0;
 }

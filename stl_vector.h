@@ -9,152 +9,143 @@
 #include <iostream>
 using namespace std;
 
-/**
- * @brief 반복자
- * @details
- */
-template <typename T>
-class Iterator {
-private:
-    T *array_;
-public:
-    Iterator(T *array = nullptr) : array_(array) { /// 객체 생성과 동시에 멤버 변수를 초기화
-    }
-
-    Iterator &operator++() {
-        ++array_;
-        return *this;
-    }
-
-    Iterator &operator++(int) {
-        array_++;
-        return *this;
-    }
-
-    Iterator &operator--() {
-        --array_;
-        return *this;
-    }
-
-    Iterator operator--(int) {
-        return *this;
-    }
-
-    Iterator &operator+=(int value) {
-        array_ += value;
-        return *this;
-    }
-
-    Iterator &operator-=(int value) {
-        array_ -= value;
-        return *this;
-    }
-
-    T &operator[](int index) {
-        return array_[index];
-    }
-
-    T &operator*() {
-        return *array_;
-    }
-
-    Iterator operator+(int value) {
-        return array_ + value;
-    }
-
-    Iterator operator-(int value) {
-        return array_ - value;
-    }
-
-    int operator-(const Iterator &kIterator) { /// 상대적 거리를 계산하기 위해 -연산자 재할당
-        return array_ - kIterator.array_;
-    }
-
-    bool operator==(const Iterator &kIterator) {
-        return array_ == kIterator.array_;
-    }
-
-    bool operator!=(const Iterator &kIterator) {
-        return array_ != kIterator.array_;
-    }
-};
-
-/**
- * @brief 역반복자
- * @details
- */
-template <typename T>
-class ReverseIterator {
-private:
-    T *array_;
-public:
-    ReverseIterator(T *array = nullptr) : array_(array) { /// 객체 생성과 동시에 멤버 변수를 초기화
-    }
-
-    ReverseIterator &operator++() {
-        --array_;
-        return *this;
-    }
-
-    ReverseIterator &operator++(int) {
-        array_--;
-        return *this;
-    }
-
-    ReverseIterator &operator--() {
-        ++array_;
-        return *this;
-    }
-
-    ReverseIterator &operator--(int) {
-        array_++;
-        return *this;
-    }
-
-    ReverseIterator &operator+=(int value) {
-        array_ -= value;
-        return *this;
-    }
-
-    ReverseIterator &operator-=(int value) {
-        array_ += value;
-        return *this;
-    }
-
-    T &operator[](int index) {
-        return array_[index];
-    }
-
-    T &operator*() {
-        return *array_;
-    }
-
-    ReverseIterator operator+(int value) {
-        return array_ - value;
-    }
-
-    ReverseIterator operator-(int value) {
-        return array_ + value;
-    }
-
-    bool operator==(const ReverseIterator &kReverseIterator) {
-        return array_ == kReverseIterator.array_;
-    }
-
-    bool operator!=(const ReverseIterator &kReverseIterator) {
-        return array_ != kReverseIterator.array_;
-    }
-};
-
-template <typename T>
+template <typename T> /// T, S, U, V
 class STLVector {
 private:
     T *array_;
     size_t size_;
     size_t capacity_;
+
+    class Iterator {
+    private:
+        T *array_;
+    public:
+        Iterator(T *array = nullptr) : array_(array) { /// 객체 생성과 동시에 멤버 변수를 초기화
+        }
+
+        Iterator &operator++() {
+            ++array_;
+            return *this;
+        }
+
+        Iterator &operator++(int) {
+            array_++;
+            return *this;
+        }
+
+        Iterator &operator--() {
+            --array_;
+            return *this;
+        }
+
+        Iterator operator--(int) {
+            array_--;
+            return *this;
+        }
+
+        Iterator &operator+=(int value) {
+            array_ += value;
+            return *this;
+        }
+
+        Iterator &operator-=(int value) {
+            array_ -= value;
+            return *this;
+        }
+
+        T &operator[](int index) {
+            return array_[index];
+        }
+
+        T &operator*() {
+            return *array_;
+        }
+
+        Iterator operator+(int value) {
+            return array_ + value;
+        }
+
+        Iterator operator-(int value) {
+            return array_ - value;
+        }
+
+        int operator-(const Iterator &kIterator) { /// 상대적 거리를 계산하기 위해 -연산자 재할당
+            return array_ - kIterator.array_;
+        }
+
+        bool operator==(const Iterator &kIterator) {
+            return array_ == kIterator.array_;
+        }
+
+        bool operator!=(const Iterator &kIterator) {
+            return array_ != kIterator.array_;
+        }
+    };
+
+    class ReverseIterator {
+    private:
+        T *array_;
+    public:
+        ReverseIterator(T *array = nullptr) : array_(array) { /// 객체 생성과 동시에 멤버 변수를 초기화
+        }
+
+        ReverseIterator &operator++() {
+            --array_;
+            return *this;
+        }
+
+        ReverseIterator &operator++(int) {
+            array_--;
+            return *this;
+        }
+
+        ReverseIterator &operator--() {
+            ++array_;
+            return *this;
+        }
+
+        ReverseIterator &operator--(int) {
+            array_++;
+            return *this;
+        }
+
+        ReverseIterator &operator+=(int value) {
+            array_ -= value;
+            return *this;
+        }
+
+        ReverseIterator &operator-=(int value) {
+            array_ += value;
+            return *this;
+        }
+
+        T &operator[](int index) {
+            return array_[index];
+        }
+
+        T &operator*() {
+            return *array_;
+        }
+
+        ReverseIterator operator+(int value) {
+            return array_ - value;
+        }
+
+        ReverseIterator operator-(int value) {
+            return array_ + value;
+        }
+
+        bool operator==(const ReverseIterator &kReverseIterator) {
+            return array_ == kReverseIterator.array_;
+        }
+
+        bool operator!=(const ReverseIterator &kReverseIterator) {
+            return array_ != kReverseIterator.array_;
+        }
+    };
 public:
-    typedef Iterator<T> Iterator;
-    typedef ReverseIterator<T> ReverseIterator;
+    typedef Iterator Iterator;
+    typedef ReverseIterator ReverseIterator;
 
     STLVector() {
         size_ = 0;

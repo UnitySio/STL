@@ -81,6 +81,9 @@
 		<Unit filename="/Users/woojinchoi/CLionProjects/STL/main.cpp">
 			<Option target="STL"/>
 		</Unit>
+		<Unit filename="/Users/woojinchoi/CLionProjects/STL/stl_list.h">
+			<Option target="STL"/>
+		</Unit>
 		<Unit filename="/Users/woojinchoi/CLionProjects/STL/stl_pair.h">
 			<Option target="STL"/>
 		</Unit>

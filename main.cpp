@@ -1,39 +1,34 @@
 #include <iostream>
-#include <vector>
 #include "stl_vector.h"
 #include "stl_pair.h"
+#include "stl_list.h"
+#include <list>
 using namespace std;
 
 int main() {
-    STLVector<STLPair<int, bool>> v_pair(10, MakePair(1, false));
-
-    STLVector<string> vec;
+    STLList<int> l;
 
     for (int i = 0; i < 10; i++) {
-        vec.PushBack("N : " + to_string(i + 1));
+        l.PushBack(10);
     }
 
-    STLVector<string> t_vec;
+    cout << l.Size() << endl;
 
-    for (int i = 0; i < 5; i++) {
-        t_vec.PushBack("Temp N : " + to_string(i + 1));
+    if (l.Empty()) {
+        cout << "True" << endl;
+    } else {
+        cout << "False" << endl;
     }
 
-    STLVector<string>::Iterator it;
+    l.Clear();
 
-    vec.Insert(vec.Begin() + 3, t_vec.Begin() + 2, t_vec.End());
+    cout << l.Size() << endl;
 
-    for (it = vec.Begin(); it != vec.End(); ++it) {
-        cout << *it << endl;
+    if (l.Empty()) {
+        cout << "True" << endl;
+    } else {
+        cout << "False" << endl;
     }
-
-    STLVector<string>::ReverseIterator rit;
-
-    for (rit = vec.RBegin(); rit != vec.REnd(); ++rit) {
-        cout << *rit << endl;
-    }
-
-    vector<pair<int, string>> t(10, make_pair(10, ""));
 
     return 0;
 }

@@ -415,7 +415,7 @@ CMakeFiles/STL.dir/main.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/sys/_types/_fsfilcnt_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/_types/_nl_item.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/c++/v1/__bsd_locale_defaults.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/c++/v1/vector \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/c++/v1/__split_buffer \
   /Users/woojinchoi/CLionProjects/STL/stl_vector.h \
-  /Users/woojinchoi/CLionProjects/STL/stl_pair.h
+  /Users/woojinchoi/CLionProjects/STL/stl_pair.h \
+  /Users/woojinchoi/CLionProjects/STL/stl_list.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk/usr/include/c++/v1/list

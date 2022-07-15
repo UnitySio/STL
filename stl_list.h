@@ -49,6 +49,10 @@ private:
             return current->data;
         }
 
+        Node *operator&() {
+            return current;
+        }
+
         bool operator==(const Iterator &kIterator) {
             return current == kIterator.current;
         }
@@ -89,6 +93,10 @@ private:
             return current->data;
         }
 
+        Node *operator&() {
+            return current;
+        }
+
         bool operator==(const ReverseIterator &kIterator) {
             return current == kIterator.current;
         }
@@ -100,7 +108,7 @@ private:
 
     Node *head_;
     Node *tail_;
-    int size_;
+    size_t size_;
 public:
     typedef Iterator Iterator;
     typedef ReverseIterator ReverseIterator;
@@ -111,6 +119,26 @@ public:
         size_ = 0;
     }
 
+    STLList(size_t size) {
+        head_ = nullptr;
+        tail_ = nullptr;
+        size_ = 0;
+
+        for (size_t i = 0; i < size; i++) {
+            PushBack(T());
+        }
+    }
+
+    STLList(size_t size, T value) {
+        head_ = nullptr;
+        tail_ = nullptr;
+        size_ = 0;
+
+        for (size_t i = 0; i < size; i++){
+            PushBack(value);
+        }
+    }
+
     STLList(const STLList<T> &kSTLList) {
         head_ = kSTLList.head_;
         tail_ = kSTLList.tail_;
@@ -118,13 +146,7 @@ public:
     }
 
     ~STLList() {
-        Node *temp = head_;
-
-        while (head_ != nullptr) {
-            head_ = head_->next;
-            delete temp;
-            temp = head_;
-        }
+        Clear();
     }
 
     void PushBack(T value) {
@@ -169,6 +191,44 @@ public:
         size_--;
     }
 
+    void Resize(size_t new_size) {
+
+    }
+
+    void Resize(size_t new_size, T value) {
+
+    }
+
+    void Insert(Iterator position, T value) {
+        Node *temp = &position;
+    }
+
+    void Erase(Iterator position) {
+
+    }
+
+    void Swap(STLList<T> stl_list) {
+        Node *temp_head = head_;
+        Node *temp_tail = tail_;
+        size_t temp_size = size_;
+
+        head_ = stl_list.head_;
+        tail_ = stl_list.tail_;
+        size_ = stl_list.size_;
+
+        stl_list.head_ = temp_head;
+        stl_list.tail_ = temp_tail;
+        stl_list.size_ = temp_size;
+    }
+
+    void Assign(size_t size, T value) {
+        Clear();
+
+        for (int i = 0; i < size; i++) {
+            PushBack(value);
+        }
+    }
+
     void Clear() {
         Node *temp = head_;
 
@@ -178,6 +238,8 @@ public:
             temp = head_;
         }
 
+        head_ = nullptr;
+        tail_ = nullptr;
         size_ = 0;
     }
 
@@ -190,10 +252,18 @@ public:
     }
 
     T Front() {
+        if (size_ == 0) {
+            return T();
+        }
+
         return head_->data;
     }
 
     T Back() {
+        if (size_ == 0) {
+            return T();
+        }
+
         return tail_->data;
     }
 

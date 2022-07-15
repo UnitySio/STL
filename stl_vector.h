@@ -158,7 +158,7 @@ public:
         capacity_ = size;
         array_ = new T[size];
 
-        for (int i = 0; i < size; i++) {
+        for (size_t i = 0; i < size; i++) {
             array_[i] = T();
         }
     }
@@ -180,7 +180,7 @@ public:
     STLVector &operator=(const STLVector &kSTLVector) {
         T *temp = new T[kSTLVector.size_];
 
-        for (int i = 0; i < kSTLVector.size_; i++) {
+        for (size_t i = 0; i < kSTLVector.size_; i++) {
             temp[i] = kSTLVector.array_[i];
         }
 
@@ -198,7 +198,7 @@ public:
             return false;
         }
 
-        for (int i = 0; i < size_; i++) {
+        for (size_t i = 0; i < size_; i++) {
             if (array_[i] != kSTLVector.array_[i]) {
                 return false;
             }
@@ -212,7 +212,7 @@ public:
             return false;
         }
 
-        for (int i = 0; i < size_; i++) {
+        for (size_t i = 0; i < size_; i++) {
             if (array_[i] == kSTLVector.array_[i]) {
                 return false;
             }
@@ -256,7 +256,7 @@ public:
         capacity_ = size;
         array_ = new T[size];
 
-        for (int i = 0; i < size; i++) {
+        for (size_t i = 0; i < size; i++) {
             array_[i] = value;
         }
     }
@@ -279,8 +279,8 @@ public:
 
     void Swap(STLVector &stl_vector) {
         T *temp_array = array_;
-        int temp_size = size_;
-        int temp_capacity = capacity_;
+        size_t temp_size = size_;
+        size_t temp_capacity = capacity_;
 
         delete[] array_;
 
@@ -299,7 +299,7 @@ public:
         capacity_ = new_capacity;
         T *temp = new T[new_capacity];
 
-        for (int i = 0; i < size_; i++) {
+        for (size_t i = 0; i < size_; i++) {
             temp[i] = array_[i];
         }
 
@@ -311,11 +311,11 @@ public:
         T *temp = new T[new_size];
 
         if (new_size > size_) {
-            for (int i = 0; i < new_size; i++) {
+            for (size_t i = 0; i < new_size; i++) {
                 temp[i] = array_[i];
             }
         } else {
-            for (int i = 0; i < new_size; i++) {
+            for (size_t i = 0; i < new_size; i++) {
                 temp[i] = array_[i];
             }
         }
@@ -331,7 +331,7 @@ public:
         T *temp = new T[new_size];
 
         if (new_size > size_) {
-            for (int i = 0; i < new_size; i++) {
+            for (size_t i = 0; i < new_size; i++) {
                 if (i > size_ - 1) {
                     temp[i] = value;
                 } else {
@@ -339,7 +339,7 @@ public:
                 }
             }
         } else {
-            for (int i = 0; i < new_size; i++) {
+            for (size_t i = 0; i < new_size; i++) {
                 temp[i] = array_[i];
             }
         }
@@ -384,13 +384,13 @@ public:
     }
 
     Iterator Insert(Iterator position, T value) {
-        int index = position - array_;
+        size_t index = position - array_;
 
         if (size_ + 1 >= capacity_) {
             Reserve(capacity_ * 2);
         }
 
-        for (int i = size_; i > index; i--) {
+        for (size_t i = size_; i > index; i--) {
             array_[i] = array_[i - 1];
         }
 
@@ -412,11 +412,11 @@ public:
             }
         }
 
-        for (int i = size_ + amount; i > index; i--) {
+        for (size_t i = size_ + amount; i > index; i--) {
             array_[i] = array_[i - amount];
         }
 
-        for (int i = 0; i < amount; i++) {
+        for (size_t i = 0; i < amount; i++) {
             array_[index + i] = value;
         }
 
@@ -426,8 +426,8 @@ public:
     }
 
     Iterator Insert(Iterator position, Iterator start, Iterator end) {
-        int index = position - array_;
-        int size = end - start;
+        size_t index = position - array_;
+        size_t size = end - start;
         size_t new_capacity = capacity_ * 2;
 
         if (size_ + size >= capacity_) {
@@ -438,11 +438,11 @@ public:
             }
         }
 
-        for (int i = size_ + size; i > index; i--) {
+        for (size_t i = size_ + size; i > index; i--) {
             array_[i] = array_[i - size];
         }
 
-        for (int i = 0; i < size; i++) {
+        for (size_t i = 0; i < size; i++) {
             array_[index + i] = *start;
             start++;
         }
@@ -452,9 +452,9 @@ public:
     }
 
     void Erase(Iterator position) {
-        int index = position - array_;
+        size_t index = position - array_;
 
-        for (int i = index + 1; i < size_; i++) {
+        for (size_t i = index + 1; i < size_; i++) {
             array_[i - 1] = array_[i];
         }
 
@@ -462,11 +462,11 @@ public:
     }
 
     void Erase(Iterator start, Iterator end) {
-        int start_index = start - array_;
-        int end_index = end - array_;
-        int distance = end_index - start_index;
+        size_t start_index = start - array_;
+        size_t end_index = end - array_;
+        size_t distance = end_index - start_index;
 
-        for (int i = end_index; i < size_; i++) {
+        for (size_t i = end_index; i < size_; i++) {
             array_[i - distance] = array_[i];
         }
 

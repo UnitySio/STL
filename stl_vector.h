@@ -352,7 +352,7 @@ public:
     }
 
     bool Empty() {
-        return size_ <= 0;
+        return size_ == 0;
     }
 
     void Clear() {

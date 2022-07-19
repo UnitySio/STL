@@ -14,7 +14,9 @@ private:
         Node *previous;
         Node *next;
 
-        Node(T value = T(), Node *previous = nullptr, Node *next = nullptr) : data(value), previous(previous), next(next) {
+        Node(T value = T()) : data(value) {
+            previous = nullptr;
+            next = nullptr;
         }
     };
 
@@ -114,14 +116,22 @@ public:
     typedef ReverseIterator ReverseIterator;
 
     STLList() {
-        head_ = nullptr;
-        tail_ = nullptr;
+        head_ = new Node();
+        tail_ = new Node();
+
+        head_->next = tail_;
+        tail_->previous = head_;
+
         size_ = 0;
     }
 
     STLList(size_t size) {
-        head_ = nullptr;
-        tail_ = nullptr;
+        head_ = new Node();
+        tail_ = new Node();
+
+        head_->next = tail_;
+        tail_->previous = head_;
+
         size_ = 0;
 
         for (size_t i = 0; i < size; i++) {
@@ -130,8 +140,12 @@ public:
     }
 
     STLList(size_t size, T value) {
-        head_ = nullptr;
-        tail_ = nullptr;
+        head_ = new Node();
+        tail_ = new Node();
+
+        head_->next = tail_;
+        tail_->previous = head_;
+
         size_ = 0;
 
         for (size_t i = 0; i < size; i++){
@@ -147,23 +161,26 @@ public:
 
     ~STLList() {
         Clear();
+
+        delete head_;
+        delete tail_;
     }
 
     void PushBack(T value) {
-        if (size_ == 0) {
-            head_ = new Node(value);
-            tail_ = head_;
-        } else {
-            tail_->next = new Node(value, tail_);
-            tail_ = tail_->next;
-        }
+        Node *temp = tail_->previous;
+        temp->next = new Node(value);
+        temp->next->previous = temp;
+        temp->next->next = tail_;
+        tail_->previous = temp->next;
 
         size_++;
     }
 
     void PopBack() {
-        Node *temp = tail_;
-        tail_ = tail_->previous;
+        Node *temp = tail_->previous;
+
+        tail_->previous = temp->previous;
+        temp->previous->next = tail_;
 
         delete temp;
 
@@ -171,20 +188,21 @@ public:
     }
 
     void PushFront(T value) {
-        if (size_ == 0) {
-            head_ = new Node(value);
-            tail_ = head_;
-        } else {
-            head_->previous = new Node(value, nullptr, head_);
-            head_ = head_->previous;
-        }
+        Node *temp = head_->next;
+        temp->previous = new Node(value);
+        temp->previous->next = temp;
+        temp->previous->previous = head_;
+        head_->next = temp->previous;
+
 
         size_++;
     }
 
     void PopFront() {
-        Node *temp = head_;
-        head_ = head_->next;
+        Node *temp = head_->next;
+
+        head_->next = temp->next;
+        temp->next->previous = head_;
 
         delete temp;
 
@@ -192,7 +210,6 @@ public:
     }
 
     void Resize(size_t new_size) {
-
     }
 
     void Resize(size_t new_size, T value) {
@@ -203,8 +220,7 @@ public:
         Node *temp = &position;
     }
 
-    void Erase(Iterator position) {
-
+    Iterator Erase(Iterator position) {
     }
 
     void Swap(STLList<T> stl_list) {
@@ -221,30 +237,42 @@ public:
         stl_list.size_ = temp_size;
     }
 
+    void Merge() {
+
+    }
+
+    void Splice() {
+
+    }
+
+    void Remove() {
+
+    }
+
+    void RemoveIf() {
+
+    }
+
+    void Unique() {
+
+    }
+
     void Assign(size_t size, T value) {
         Clear();
 
-        for (int i = 0; i < size; i++) {
+        for (size_t i = 0; i < size; i++) {
             PushBack(value);
         }
     }
 
     void Clear() {
-        Node *temp = head_;
-
-        while (head_ != nullptr) {
-            head_ = head_->next;
-            delete temp;
-            temp = head_;
+        for (size_t i = 0; i < Size(); i++) {
+            PopBack();
         }
-
-        head_ = nullptr;
-        tail_ = nullptr;
-        size_ = 0;
     }
 
     bool Empty() {
-        return size_ <= 0;
+        return size_ == 0;
     }
 
     int Size() {
@@ -252,35 +280,27 @@ public:
     }
 
     T Front() {
-        if (size_ == 0) {
-            return T();
-        }
-
-        return head_->data;
+        return head_->next->data;
     }
 
     T Back() {
-        if (size_ == 0) {
-            return T();
-        }
-
-        return tail_->data;
+        return tail_->previous->data;
     }
 
     Iterator Begin() {
-        return Iterator(head_);
+        return Iterator(head_->next);
     }
 
     Iterator End() {
-        return Iterator(nullptr);
+        return Iterator(tail_);
     }
 
     ReverseIterator RBegin() {
-        return ReverseIterator(nullptr);
+        return ReverseIterator(tail_);
     }
 
     ReverseIterator REnd() {
-        return ReverseIterator(head_);
+        return ReverseIterator(head_->next);
     }
 };
 

@@ -166,6 +166,70 @@ public:
         delete tail_;
     }
 
+    STLList &operator=(const STLList &kSTLList) {
+        head_ = kSTLList.head_;
+        tail_ = kSTLList.tail_;
+        size_ = kSTLList.size_;
+
+        return *this;
+    }
+
+    bool operator!=(const STLList &kSTLList) {
+        if (size_ != kSTLList.size_) {
+            return true;
+        } else {
+            Node *temp = head_->next;
+            Node *stl_list_temp = kSTLList.head_->next;
+
+            for (size_t i = 0; i < size_; i++) {
+                if (temp->data == stl_list_temp->data) {
+                    return false;
+                }
+
+                temp = temp->next;
+                stl_list_temp = stl_list_temp->next;
+            }
+
+            return true;
+        }
+    }
+
+    bool operator==(const STLList &kSTLList) {
+        if (size_ == kSTLList.size_) {
+            Node *temp = head_->next;
+            Node *stl_list_temp = kSTLList.head_->next;
+
+            for (size_t i = 0; i < size_; i++) {
+                if (temp->data != stl_list_temp->data) {
+                    return false;
+                }
+
+                temp = temp->next;
+                stl_list_temp = stl_list_temp->next;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    bool operator>(const STLList &kSTLList) {
+        return head_->next->data > kSTLList.head_->next->data;
+    }
+
+    bool operator<(const STLList &kSTLList) {
+        return head_->next->data < kSTLList.head_->next->data;
+    }
+
+    bool operator>=(const STLList &kSTLList) {
+        return head_->next->data >= kSTLList.head_->next->data;
+    }
+
+    bool operator<=(const STLList &kSTLList) {
+        return head_->next->data <= kSTLList.head_->next->data;
+    }
+
     void PushBack(T value) {
         Node *temp = tail_->previous;
         temp->next = new Node(value);
@@ -210,17 +274,65 @@ public:
     }
 
     void Resize(size_t new_size) {
+        size_t sub;
+
+        if (new_size > size_) {
+            sub = new_size - size_;
+
+            for (size_t i = 0; i < sub; i++) {
+                PushBack(T());
+            }
+        } else {
+            sub = size_ - new_size;
+
+            for (size_t i = 0; i < sub; i++) {
+                PopBack();
+            }
+        }
     }
 
     void Resize(size_t new_size, T value) {
+        size_t sub;
 
+        if (new_size > size_) {
+            sub = new_size - size_;
+
+            for (size_t i = 0; i < sub; i++) {
+                PushBack(value);
+            }
+        } else {
+            sub = size_ - new_size;
+
+            for (size_t i = 0; i < sub; i++) {
+                PopBack();
+            }
+        }
     }
 
     void Insert(Iterator position, T value) {
         Node *temp = &position;
+        Node *temp_previous = temp->previous;
+
+        temp->previous = new Node(value);
+        temp->previous->next = temp;
+        temp->previous->previous = temp_previous;
+        temp_previous->next = temp->previous;
+
+        size_++;
     }
 
     Iterator Erase(Iterator position) {
+        Node *temp = &position;
+        Node *temp_next = temp->next;
+
+        temp->previous->next = temp_next;
+        temp_next->previous = temp->previous;
+
+        delete temp;
+
+        size_--;
+
+        return Iterator(temp_next);
     }
 
     void Swap(STLList<T> stl_list) {
@@ -245,16 +357,61 @@ public:
 
     }
 
-    void Remove() {
+    void Remove(T value) {
+        Node *temp = head_->next;
 
+        for (size_t i = 0; i < size_; i++) {
+            if (temp->data == value) {
+                Erase(temp);
+            }
+
+            temp = temp->next;
+        }
     }
 
-    void RemoveIf() {
+    template<typename Condition>
+    void RemoveIf(Condition condition) {
+        Node *temp = head_->next;
 
+        for (size_t i = 0; i < size_; i++) {
+            if (condition(temp->data)) {
+                Erase(temp);
+            }
+
+            temp = temp->next;
+        }
     }
 
     void Unique() {
+        Node *temp = head_->next;
+        Node *temp_next = temp->next;
 
+        for (size_t i = 0; i < size_; i++) {
+            while (temp->data == temp_next->data) {
+                Erase(temp_next);
+                temp_next = temp->next;
+            }
+
+            temp = temp->next;
+            temp_next = temp->next;
+        }
+    }
+
+    /// 예외 처리 필요(수정 예정)
+    template<typename Condition>
+    void Unique(Condition condition) {
+        Node *temp = head_->next;
+        Node *temp_next = temp->next;
+
+        for (size_t i = 0; i < size_; i++) {
+            while (condition(temp->data, temp_next->data)) {
+                Erase(temp_next);
+                temp_next = temp->next;
+            }
+
+            temp = temp->next;
+            temp_next = temp->next;
+        }
     }
 
     void Assign(size_t size, T value) {
@@ -266,7 +423,7 @@ public:
     }
 
     void Clear() {
-        for (size_t i = 0; i < Size(); i++) {
+        for (size_t i = 0; i < size_; i++) {
             PopBack();
         }
     }

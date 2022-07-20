@@ -6,21 +6,34 @@
 #include <list>
 using namespace std;
 
+/*bool Condition(int i) {
+    return ((i % 2) == 0);
+}*/
+
 int main() {
     STLList<int> l;
 
-    for (size_t i = 0; i < 10; i++) {
-        l.PushFront(i + 1);
+    l.PushBack(1);
+    l.PushBack(2);
+    l.PushBack(3);
+    l.PushBack(4);
+    l.PushBack(1);
+
+    l.Unique([](int a, int b) {
+        return a != b;
+    });
+
+    /*l.RemoveIf([](int i) {
+        return ((i % 2) == 0);
+    });*/
+
+    //l.RemoveIf(Condition);
+
+    STLList<int>::Iterator it;
+
+    for (it = l.Begin(); it != l.End(); ++it) {
+        cout << *it << endl;
     }
-
-    for (size_t i = 0; i < 10; i++) {
-        l.PopBack();
-    }
-
-    l.Clear();
-
-    cout << l.Front() << endl;
-    cout << l.Back() << endl;
 
     return 0;
 }

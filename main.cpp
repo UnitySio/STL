@@ -11,28 +11,44 @@ using namespace std;
 }*/
 
 int main() {
-    STLList<int> l;
+    STLList<int> l1, l2;
 
-    l.PushBack(1);
-    l.PushBack(2);
-    l.PushBack(3);
-    l.PushBack(4);
-    l.PushBack(1);
+    l1.PushBack(1);
+    l1.PushBack(2);
+    l1.PushBack(3);
+    l1.PushBack(4);
+    l1.PushBack(5);
 
-    l.Unique([](int a, int b) {
-        return a != b;
-    });
+    l2.PushBack(6);
+    l2.PushBack(7);
+    l2.PushBack(8);
+    l2.PushBack(9);
+    l2.PushBack(10);
 
-    /*l.RemoveIf([](int i) {
-        return ((i % 2) == 0);
-    });*/
 
-    //l.RemoveIf(Condition);
+    STLList<int>::Iterator it = l1.Begin();
 
-    STLList<int>::Iterator it;
+    cout << l1.Size() << endl << endl;
 
-    for (it = l.Begin(); it != l.End(); ++it) {
+    it++;
+
+    STLList<int>::Iterator it1 = l2.Begin();
+    STLList<int>::Iterator ait2 = l2.End();
+
+    l1.Splice(it, l2, it1, ait2);
+
+    cout << l1.Size() << endl << endl;
+
+    for (it = l1.Begin(); it != l1.End(); ++it) {
         cout << *it << endl;
+    }
+
+    cout << endl << "list2" << endl;
+
+    STLList<int>::Iterator it2;
+
+    for (it2 = l2.Begin(); it2 != l2.End(); ++it2) {
+        cout << *it2 << endl;
     }
 
     return 0;

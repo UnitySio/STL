@@ -335,6 +335,70 @@ public:
         return Iterator(temp_next);
     }
 
+    void Splice(Iterator position, STLList &stl_list) {
+        Node *temp = &position;
+
+        temp->previous->next = stl_list.head_->next;
+        temp->previous->next->previous = temp->previous;
+        temp->previous = stl_list.tail_->previous;
+        temp->previous->next = temp;
+
+        size_ += stl_list.size_;
+
+        stl_list.head_->next = stl_list.tail_;
+        stl_list.tail_->previous = stl_list.head_;
+        stl_list.size_ = 0;
+    }
+
+    void Splice (Iterator position, STLList &stl_list, Iterator target_position) {
+        Node *temp = &position;
+        Node *target = &target_position;
+
+        target->previous->next = target->next;
+        target->next->previous = target->previous;
+
+        temp->previous->next = target;
+        temp->previous = target;
+
+        target->previous = temp->previous;
+        target->next = temp;
+
+        size_++;
+        stl_list.size_--;
+    }
+
+    void Splice (Iterator position, STLList &stl_list, Iterator start, Iterator end) {
+        size_t size = 0;
+        Node *temp = &position;
+        Node *target_start = &start;
+        Node *target_end = &end;
+
+        size = GetNodeSize(target_start, target_end);
+
+        temp->previous->next = target_start;
+        target_start->previous->next = target_end;
+        target_start->previous = temp->previous;
+
+        temp->previous = target_end->previous;
+        target_end->previous->next = temp;
+        target_end->previous = target_start;
+
+        size_ += size;
+        stl_list.size_ -= size;
+    }
+
+    size_t GetNodeSize(Iterator current, Iterator end) {
+        size_t size = 0;
+        Node *target_current = &current;
+        Node *target_end = &end;
+
+        if (target_current != target_end) {
+            size = 1 + GetNodeSize(target_current->next, target_end);
+        }
+
+        return size;
+    }
+
     void Swap(STLList<T> stl_list) {
         Node *temp_head = head_;
         Node *temp_tail = tail_;
@@ -349,14 +413,6 @@ public:
         stl_list.size_ = temp_size;
     }
 
-    void Merge() {
-
-    }
-
-    void Splice() {
-
-    }
-
     void Remove(T value) {
         Node *temp = head_->next;
 
@@ -369,12 +425,12 @@ public:
         }
     }
 
-    template<typename Condition>
-    void RemoveIf(Condition condition) {
+    template<typename Predicate>
+    void RemoveIf(Predicate predicate) {
         Node *temp = head_->next;
 
         for (size_t i = 0; i < size_; i++) {
-            if (condition(temp->data)) {
+            if (predicate(temp->data)) {
                 Erase(temp);
             }
 
@@ -387,7 +443,7 @@ public:
         Node *temp_next = temp->next;
 
         for (size_t i = 0; i < size_; i++) {
-            while (temp->data == temp_next->data) {
+            while (temp->data == temp_next->data && temp_next != tail_) {
                 Erase(temp_next);
                 temp_next = temp->next;
             }
@@ -397,14 +453,13 @@ public:
         }
     }
 
-    /// 예외 처리 필요(수정 예정)
-    template<typename Condition>
-    void Unique(Condition condition) {
+    template<typename Predicate>
+    void Unique(Predicate predicate) {
         Node *temp = head_->next;
         Node *temp_next = temp->next;
 
         for (size_t i = 0; i < size_; i++) {
-            while (condition(temp->data, temp_next->data)) {
+            while (predicate(temp->data, temp_next->data) && temp_next != tail_) {
                 Erase(temp_next);
                 temp_next = temp->next;
             }

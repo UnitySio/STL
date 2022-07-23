@@ -17,8 +17,8 @@ C++ STL에서 주로 사용하는 자료구조를 직접 구현해보기 위해 
 * merge 및 sort 사용 불가
 * Doxygen 작업 미
 
-* [X] Deque - 작업 예정
+* [ ] Deque - 작업 예정
 
-* [X] Queue - 작업 예정
+* [ ] Queue - 작업 예정
 
-* [X] Stack - 작업 예정
+* [ ] Stack - 작업 예정

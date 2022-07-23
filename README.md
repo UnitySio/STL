@@ -13,4 +13,6 @@ C++ STL에서 주로 사용하는 자료구조를 직접 구현해보기 위해 
 * get을 동한 first, second 반환 불가
 * Doxygen 작업 미정
 
-* [X] List - 작업 중
+* [X] List - 작업 완료(추후 상황에 따라 빠진 기능이 있다면 추가 예정)
+* merge 및 sort 사용 불가
+* Doxygen 작업 미
